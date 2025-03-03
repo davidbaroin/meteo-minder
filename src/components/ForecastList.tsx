@@ -1,9 +1,14 @@
 
+import { useState } from "react";
 import { useWeather } from "@/context/WeatherContext";
 import { ForecastCard } from "@/components/ForecastCard";
+import { ForecastDetailDialog } from "@/components/ForecastDetailDialog";
+import { DailyForecast } from "@/types/weather";
 
 export const ForecastList = () => {
   const { weatherData } = useWeather();
+  const [selectedForecast, setSelectedForecast] = useState<DailyForecast | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
   
   if (!weatherData) return null;
   
@@ -11,6 +16,11 @@ export const ForecastList = () => {
   
   // Get current date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];
+
+  const handleForecastClick = (day: DailyForecast) => {
+    setSelectedForecast(day);
+    setIsDetailOpen(true);
+  };
   
   return (
     <div className="w-full py-2 animate-fade-in">
@@ -20,10 +30,17 @@ export const ForecastList = () => {
             <ForecastCard 
               forecast={day} 
               isToday={day.date === today}
+              onClick={() => handleForecastClick(day)}
             />
           </div>
         ))}
       </div>
+
+      <ForecastDetailDialog 
+        forecast={selectedForecast}
+        isOpen={isDetailOpen}
+        onOpenChange={setIsDetailOpen}
+      />
     </div>
   );
 };

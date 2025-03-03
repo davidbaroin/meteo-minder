@@ -8,9 +8,10 @@ import { cn } from "@/lib/utils";
 interface ForecastCardProps {
   forecast: DailyForecast;
   isToday?: boolean;
+  onClick?: () => void;
 }
 
-export const ForecastCard = ({ forecast, isToday = false }: ForecastCardProps) => {
+export const ForecastCard = ({ forecast, isToday = false, onClick }: ForecastCardProps) => {
   // Format date: "Mar 15" for example
   const formattedDate = new Date(forecast.date).toLocaleDateString('fr', {
     day: 'numeric',
@@ -25,10 +26,13 @@ export const ForecastCard = ({ forecast, isToday = false }: ForecastCardProps) =
   };
 
   return (
-    <Card className={cn(
-      "glass-card transition-all hover:shadow-lg",
-      isToday ? "border-primary/50" : ""
-    )}>
+    <Card 
+      className={cn(
+        "glass-card transition-all hover:shadow-lg cursor-pointer hover:scale-105 transition-transform",
+        isToday ? "border-primary/50" : ""
+      )}
+      onClick={onClick}
+    >
       <CardContent className="p-4">
         <div className="flex flex-col items-center">
           <div className="text-sm font-medium mb-1">
