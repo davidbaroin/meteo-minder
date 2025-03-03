@@ -28,32 +28,32 @@ export const ForecastCard = ({ forecast, isToday = false, onClick }: ForecastCar
   return (
     <Card 
       className={cn(
-        "glass-card transition-all hover:shadow-lg cursor-pointer hover:scale-105 transition-transform",
+        "glass-card transition-all hover:shadow-lg cursor-pointer hover:scale-105 transition-transform h-full",
         isToday ? "border-primary/50" : ""
       )}
       onClick={onClick}
     >
-      <CardContent className="p-4">
+      <CardContent className="p-2 sm:p-4">
         <div className="flex flex-col items-center">
-          <div className="text-sm font-medium mb-1">
+          <div className="text-sm font-medium">
             {isToday ? "Aujourd'hui" : forecast.dayOfWeek}
           </div>
-          <div className="text-xs text-muted-foreground mb-3">
+          <div className="text-xs text-muted-foreground mb-1 sm:mb-2">
             {formattedDate}
           </div>
           
           <WeatherIcon 
             condition={forecast.condition} 
-            className="h-10 w-10 mb-3" 
+            className="h-8 w-8 sm:h-10 sm:w-10 mb-1 sm:mb-2" 
           />
           
-          <div className="flex items-center justify-center gap-2 mb-3">
+          <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1 sm:mb-2">
             <span className="font-medium">{forecast.temperatureMax}°</span>
             <span className="text-muted-foreground">{forecast.temperatureMin}°</span>
           </div>
           
           <div className="flex items-center mt-auto">
-            <Droplets className={cn("h-4 w-4 mr-1", getRainProbColor(forecast.rainProbability))} />
+            <Droplets className={cn("h-3 w-3 sm:h-4 sm:w-4 mr-1", getRainProbColor(forecast.rainProbability))} />
             <span className="text-xs">{forecast.rainProbability}%</span>
           </div>
         </div>
